@@ -22,7 +22,6 @@ spec:
 
 ---
 
-# Source: k8s-deployer/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -41,7 +40,6 @@ spec:
 
 ---
 
-# Source: k8s-deployer/templates/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
