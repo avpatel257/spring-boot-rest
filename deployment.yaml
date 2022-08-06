@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: avpatel257/spring-boot-rest:1.0.0-20220726_145159
+          image: avpatel257/spring-boot-rest:latest
           ports:
             - containerPort: 8080
 
@@ -29,13 +29,16 @@ metadata:
   labels:
     app: web
   annotations:
-
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8080"
+    prometheus.io/scrape: "true"
 spec:
   type: ClusterIP
   selector:
     app: web
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
 
 ---
@@ -45,12 +48,12 @@ kind: ServiceMonitor
 metadata:
   name: web
   labels:
-    app: "web"
+    app: web
     release: prometheus-operator
 spec:
   selector:
     matchLabels:
-      app: "web"
+      app: web
   endpoints:
     - port: http
       scheme: http
